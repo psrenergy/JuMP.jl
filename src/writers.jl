@@ -3,7 +3,7 @@
 #  License, v. 2.0. If a copy of the MPL was not distributed with this
 #  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 if VERSION ≥ v"0.7-"
-    const print_shortest = error("print_shortest is not available in  this version. We dropped it becuase Grisu was moved out of Julia Base in version 1.6")
+    const print_shortest = sum #print_shortest is not available in  this version. We dropped it becuase Grisu was moved out of Julia Base in version 1.6
 end
 
 function writeMPS(m::Model, fname::AbstractString)
