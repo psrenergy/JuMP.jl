@@ -16,7 +16,6 @@ import MathProgBase
 
 using Calculus
 using ReverseDiffSparse
-using ForwardDiff
 
 using Compat
 using Compat.LinearAlgebra
@@ -952,7 +951,7 @@ include("solvers.jl")
 # Callbacks - lazy, cuts, ...
 include("callbacks.jl")
 # Nonlinear-specific code
-include("nlp.jl")
+# include("nlp.jl")
 # Pretty-printing of JuMP-defined types.
 include("print.jl")
 # Deprecations

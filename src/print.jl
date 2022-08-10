@@ -816,9 +816,9 @@ end
 #Base.show(io::IO, c::NonlinearExprData) = print(io, expr_str(REPLMode, c))
 #Base.show(io::IO, ::MIME"text/latex", c::NonlinearExprData) =
 #    print(io, expr_str(IJuliaMode, c))
-function expr_str(m::Model, mode, c::NonlinearExprData)
-    return string(tapeToExpr(m, 1, c.nd, adjmat(c.nd), c.const_values, [], [], m.nlpdata.user_operators, false, false, mode))
-end
+# function expr_str(m::Model, mode, c::NonlinearExprData)
+#     return string(tapeToExpr(m, 1, c.nd, adjmat(c.nd), c.const_values, [], [], m.nlpdata.user_operators, false, false, mode))
+# end
 
 #------------------------------------------------------------------------
 ## GenericRangeConstraint
@@ -924,21 +924,21 @@ con_str(::Type{IJuliaMode}, c::SDConstraint; mathmode=true) =
 #------------------------------------------------------------------------
 ## NonlinearConstraint
 #------------------------------------------------------------------------
-Base.show(io::IO, c::NonlinearConstraint) = print(io, con_str(REPLMode,c))
-Base.show(io::IO, ::MIME"text/latex", c::NonlinearConstraint) =
-    print(io, con_str(IJuliaMode,c,mathmode=false))
-# Generic string converter, called by mode-specific handlers
-function con_str(m::Model, mode, c::NonlinearConstraint, sym)
-    s = sense(c)
-    nl = expr_str(m, mode, c.terms)
-    if s == :range
-        out_str = "$(str_round(c.lb)) $(sym[:leq]) $nl $(sym[:leq]) $(str_round(c.ub))"
-    else
-        rel = s == :<= ? sym[:leq] : (s == :>= ? sym[:geq] : sym[:eq])
-        out_str = string(nl," ",rel," ",str_round(rhs(c)))
-    end
-    out_str
-end
+# Base.show(io::IO, c::NonlinearConstraint) = print(io, con_str(REPLMode,c))
+# Base.show(io::IO, ::MIME"text/latex", c::NonlinearConstraint) =
+#     print(io, con_str(IJuliaMode,c,mathmode=false))
+# # Generic string converter, called by mode-specific handlers
+# function con_str(m::Model, mode, c::NonlinearConstraint, sym)
+#     s = sense(c)
+#     nl = expr_str(m, mode, c.terms)
+#     if s == :range
+#         out_str = "$(str_round(c.lb)) $(sym[:leq]) $nl $(sym[:leq]) $(str_round(c.ub))"
+#     else
+#         rel = s == :<= ? sym[:leq] : (s == :>= ? sym[:geq] : sym[:eq])
+#         out_str = string(nl," ",rel," ",str_round(rhs(c)))
+#     end
+#     out_str
+# end
 # Handlers to use correct symbols
 con_str(m::Model, ::Type{REPLMode}, c::GenericRangeConstraint; args...) =
     con_str(m, REPLMode, c, repl)
@@ -952,7 +952,7 @@ Base.show(io::IO, c::ConstraintRef{Model,QuadConstraint})   = print(io, con_str(
 Base.show(io::IO, c::ConstraintRef{Model,SOSConstraint})    = print(io, con_str(REPLMode,c.m.sosconstr[c.idx]))
 Base.show(io::IO, c::ConstraintRef{Model,SOCConstraint})    = print(io, con_str(REPLMode,c.m.socconstr[c.idx]))
 Base.show(io::IO, c::ConstraintRef{Model,SDConstraint})     = print(io, con_str(REPLMode,c.m.sdpconstr[c.idx]))
-Base.show(io::IO, c::ConstraintRef{Model,NonlinearConstraint}) = print(io, con_str(c.m, REPLMode, c.m.nlpdata.nlconstr[c.idx]))
+# Base.show(io::IO, c::ConstraintRef{Model,NonlinearConstraint}) = print(io, con_str(c.m, REPLMode, c.m.nlpdata.nlconstr[c.idx]))
 
 Base.show(io::IO, ::MIME"text/latex", c::ConstraintRef{Model,LinearConstraint}) =
     print(io, con_str(IJuliaMode,c.m.linconstr[c.idx],mathmode=false))
@@ -960,10 +960,10 @@ Base.show(io::IO, ::MIME"text/latex", c::ConstraintRef{Model,QuadConstraint}) =
     print(io, con_str(IJuliaMode,c.m.quadconstr[c.idx],mathmode=false))
 Base.show(io::IO, ::MIME"text/latex", c::ConstraintRef{Model,SOSConstraint}) =
     print(io, con_str(IJuliaMode,c.m.sosconstr[c.idx],mathmode=false))
-Base.show(io::IO, ::MIME"text/latex", c::ConstraintRef{Model,NonlinearConstraint}) = print(io, con_str(c.m, IJuliaMode, c.m.nlpdata.nlconstr[c.idx],mathmode=false))
+# Base.show(io::IO, ::MIME"text/latex", c::ConstraintRef{Model,NonlinearConstraint}) = print(io, con_str(c.m, IJuliaMode, c.m.nlpdata.nlconstr[c.idx],mathmode=false))
 
 #------------------------------------------------------------------------
 ## Nonlinear expression/parameter reference
 #------------------------------------------------------------------------
-Base.show(io::IO, ex::NonlinearExpression) = Base.show(io, "Reference to nonlinear expression #$(ex.index)")
-Base.show(io::IO, p::NonlinearParameter) = Base.show(io, "Reference to nonlinear parameter #$(p.index)")
+# Base.show(io::IO, ex::NonlinearExpression) = Base.show(io, "Reference to nonlinear expression #$(ex.index)")
+# Base.show(io::IO, p::NonlinearParameter) = Base.show(io, "Reference to nonlinear parameter #$(p.index)")
