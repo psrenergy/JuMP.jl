@@ -15,7 +15,6 @@ import Base.map
 import MathProgBase
 
 using Calculus
-using ReverseDiffSparse
 
 using Compat
 using Compat.LinearAlgebra
