@@ -1357,14 +1357,14 @@ include("print.jl")
 # `MOI.OPTIMAL`. This piece of code re-exports them from JuMP so that users can
 # use: `MOI.OPTIMAL`, `JuMP.OPTIMAL`, or `using JuMP; OPTIMAL`.
 
-for sym in [:ResultStatusCode, :TerminationStatusCode, :OptimizationSense]
-    @eval const $sym = MOI.$sym
-    for enum in instances(getfield(MOI, sym))
-        @eval const $(Symbol(enum)) = $enum
-        docstr = Docs.docstr(Docs.Binding(MOI, Symbol(enum)))
-        Docs.doc!(@__MODULE__, Docs.Binding(@__MODULE__, Symbol(enum)), docstr)
-    end
-end
+# for sym in [:ResultStatusCode, :TerminationStatusCode, :OptimizationSense]
+#     @eval const $sym = MOI.$sym
+#     for enum in instances(getfield(MOI, sym))
+#         @eval const $(Symbol(enum)) = $enum
+#         docstr = Docs.docstr(Docs.Binding(MOI, Symbol(enum)))
+#         Docs.doc!(@__MODULE__, Docs.Binding(@__MODULE__, Symbol(enum)), docstr)
+#     end
+# end
 
 # JuMP exports everything except internal symbols, which are defined as those
 # whose name starts with an underscore. Macros whose names start with
