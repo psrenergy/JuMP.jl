@@ -1412,8 +1412,8 @@ for sym in [:ResultStatusCode, :TerminationStatusCode, :OptimizationSense]
     @eval const $sym = MOI.$sym
     for enum in instances(getfield(MOI, sym))
         @eval const $(Symbol(enum)) = $enum
-        docstr = Docs.docstr(Docs.Binding(MOI, Symbol(enum)))
-        Docs.doc!(@__MODULE__, Docs.Binding(@__MODULE__, Symbol(enum)), docstr)
+        # docstr = Docs.docstr(Docs.Binding(MOI, Symbol(enum)))
+        # Docs.doc!(@__MODULE__, Docs.Binding(@__MODULE__, Symbol(enum)), docstr)
     end
 end
 
